@@ -1,6 +1,9 @@
 all:
   exclude:
     - 'node_modules/**/*'
+
+runners:
+  - eslint_npm
 github:
   slug: tommymcc/linted-react-app
   api_endpoint: https://api.github.com/
