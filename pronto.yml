@@ -1,9 +1,6 @@
 all:
   exclude:
-    - 'bin/**/*'
-    - 'tmp/**/*'
-    - 'db/**/*'
-    - 'log/**/*'
+    - 'node_modules/**/*'
 github:
   slug: tommymcc/linted-react-app
   api_endpoint: https://api.github.com/
