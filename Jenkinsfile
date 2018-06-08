@@ -3,20 +3,18 @@ pipeline {
 
   stages {
 
-    /*
     stage('Setup') {
+      agent { docker { image 'node:9-alpine' } }
+
       steps {
-
-          sh 'docker network create jenkins_test || true'
-
-          setupDatabase()
-        }
+        sh 'yarn'
       }
     }
-    */
 
     stage('Lint') {
       when { not { branch 'master' } }
+
+      //agent { docker { image 'tommymccallig/codelint:0.0.1' } }
 
       environment {
         PRONTO_TOKEN = credentials('PRONTO_GITHUB_ACCESS_TOKEN')
