@@ -7,7 +7,7 @@ pipeline {
       agent {
         docker {
           image 'node:9-alpine'
-          registryUrl 'https://registry.hub.docker.com/'
+          registryUrl 'https://index.docker.io/v1/'
         }
       }
 
@@ -19,7 +19,12 @@ pipeline {
     stage('Lint') {
       when { not { branch 'master' } }
 
-      //agent { docker { image 'tommymccallig/codelint:0.0.1' } }
+      agent {
+        docker {
+          image 'tommymccallig/codelint:0.0.1'
+          registryUrl 'https://index.docker.io/v1/'
+        }
+      }
 
       environment {
         PRONTO_TOKEN = credentials('PRONTO_GITHUB_ACCESS_TOKEN')
@@ -28,15 +33,17 @@ pipeline {
       steps {
         echo 'Linting...'
 
-        script {
+        sh 'pronto run -f github_status github_pr_review -c origin/master'
 
-          docker.image('tommymccallig/codelint:0.0.1').inside(
-            "-e PRONTO_GITHUB_ACCESS_TOKEN=${env.PRONTO_TOKEN} " +
-            "-e PRONTO_PULL_REQUEST_ID=${env.CHANGE_ID} "
-          ){
-            sh 'pronto run -f github_status github_pr_review -c origin/master'
-          }
-        }
+        // script {
+
+        //   docker.image('tommymccallig/codelint:0.0.1').inside(
+        //     "-e PRONTO_GITHUB_ACCESS_TOKEN=${env.PRONTO_TOKEN} " +
+        //     "-e PRONTO_PULL_REQUEST_ID=${env.CHANGE_ID} "
+        //   ){
+        //     sh 'pronto run -f github_status github_pr_review -c origin/master'
+        //   }
+        // }
       }
     }
 
