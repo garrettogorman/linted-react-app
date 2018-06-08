@@ -1,0 +1,3 @@
+eslint_executable: './node_modules/.bin/eslint'
+# files_to_lint: '\.my_custom_extension$'
+# cmd_line_opts: '--ext .html,.js,.es6'
