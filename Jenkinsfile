@@ -27,7 +27,8 @@ pipeline {
       }
 
       environment {
-        PRONTO_TOKEN = credentials('PRONTO_GITHUB_ACCESS_TOKEN')
+        PRONTO_GITHUB_ACCESS_TOKEN = credentials('PRONTO_GITHUB_ACCESS_TOKEN')
+        PRONTO_PULL_REQUEST_ID = env.CHANGE_ID
       }
 
       steps {
