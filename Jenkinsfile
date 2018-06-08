@@ -4,7 +4,12 @@ pipeline {
   stages {
 
     stage('Setup') {
-      agent { docker { image 'node:9-alpine' } }
+      agent {
+        docker {
+          image 'node:9-alpine'
+          registryUrl 'https://registry.hub.docker.com/'
+        }
+      }
 
       steps {
         sh 'yarn'
